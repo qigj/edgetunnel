@@ -19,7 +19,7 @@ jobs:
       - name: Get tag name
         id: get_tag
         run: |
-          echo "tag_name=$(awk -F\' '/const Version = / {print $(NF-1)}' _worker.js)" >> $GITHUB_OUTPUT
+          echo "tag_name=$(awk -F\' '/const Version = / {gsub(/[-: ]/, "", $(NF-1)); print $(NF-1)}' _worker.js)" >> $GITHUB_OUTPUT
           echo "当前标签: $TAG_NAME"
 
       - name: Set up Node.js
