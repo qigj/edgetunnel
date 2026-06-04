@@ -116,8 +116,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.get_tag.outputs.tag_name }}
-          name: Pages ${{ steps.get_tag.outputs.tag_name }}
+          tag_name: release-${{ github.run_number }}-${{ github.run_attempt }}
+          name: Pages-${{ github.run_number }}
           body: |
             ## 部署信息
             
