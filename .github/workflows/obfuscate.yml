@@ -118,7 +118,7 @@ jobs:
             
             - **源文件**: _worker.js
             - **压缩文件**: Pages.zip
-            - **部署时间**: ${{ github.event.head_commit.timestamp }}
+            - **部署时间**: ${{ steps.get_tag.outputs.tag_name }}
             
             ## 文件变更
             
