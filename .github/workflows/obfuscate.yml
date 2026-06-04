@@ -107,6 +107,7 @@ jobs:
         run: |
           cd Pages
           zip Pages.zip _worker.js
+          mv Pages.zip ../
           echo "成功将 '_worker.js' 和 'wrangler.toml' 压缩为 'Pages.zip'"
       
       - name: Create GitHub Release
