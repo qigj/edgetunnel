@@ -2,44 +2,18 @@ name: Obfuscate and Deploy Worker Script
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Upstream Sync"]
-    types:
-      - completed
+
 
 permissions:
   contents: write
 
 jobs:
   build-and-obfuscate:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-
-      - name: Check _worker.js changes
-        id: check
-        run: |
-          FILE_CHANGED=$(git diff --name-only \
-            ${{ github.event.workflow_run.head_sha }} \
-            ${{ github.event.workflow_run.before }} \
-            | grep "_worker.js" || true)
-
-          if [ -z "$FILE_CHANGED" ]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-            echo "No _worker.js changes, exit."
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-            echo "Worker changed."
-          fi
-
-      - name: Stop if no change
-        if: steps.check.outputs.skip == 'true'
-        run: exit 0
 
       - name: Get tag name
         id: get_tag
