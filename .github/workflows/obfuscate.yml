@@ -1,6 +1,7 @@
 name: Obfuscate and Deploy Worker Script
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Upstream Sync"]
     types:
