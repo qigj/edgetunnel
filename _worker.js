@@ -1,4 +1,4 @@
-const Version = '2026-08-09 20:11:58';
+﻿const Version = '2026-08-09 23:10:57';
 let config_JSON, 缓存SOCKS5白名单 = null, 调试日志打印 = false;
 let SOCKS5白名单 = ['*tapecontent.net', '*cloudatacdn.com', '*loadshare.org', '*cdn-centaurus.com', 'scholar.google.com'];
 const Pages静态页面 = 'https://edt-pages.github.io';
@@ -5997,7 +5997,7 @@ async function 反代参数获取(url, uuid, 默认反代IP = '', 默认反代�
 	const 链式代理路径匹配 = pathname.match(/\/video\/(.+)$/i);
 	if (链式代理路径匹配) {
 		try {
-			const 链式代理明文 = base64SecretDecode(链式代理路径匹配[1], uuid);
+			const 链式代理明文 = base64SecretDecode(链式代理路径匹配[1].replace(/\/+$/, ''), uuid);
 			const { type, ...链式代理地址 } = JSON.parse(链式代理明文);
 			if (!type || !反代协议默认端口[String(type).toLowerCase()]) throw new Error('链式代理类型无效');
 			if (!链式代理地址.hostname || !链式代理地址.port) throw new Error('链式代理地址缺少 hostname 或 port');
@@ -6057,7 +6057,7 @@ async function 反代参数获取(url, uuid, 默认反代IP = '', 默认反代�
 	const 木马路径匹配 = /\/trojan=([^?#\s]+)/i.exec(pathname);
 	if (木马路径匹配) {
 		try {
-			反代上下文.木马反代地址 = 解析木马反代地址(木马路径匹配[1]);
+			反代上下文.木马反代地址 = 解析木马反代地址(木马路径匹配[1].replace(/\/+$/, ''));
 		} catch (err) {
 			console.error('解析木马反代地址失败:', err.message);
 			反代上下文.木马反代地址 = null;
